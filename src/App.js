@@ -1,69 +1,163 @@
-import React, {Component} from 'react';
-import {
-  I18nManager,
-  KeyboardAvoidingView,
-  Modal,
-  Platform,
-  View,
-} from 'react-native';
-import {CommonActions, NavigationContainer} from '@react-navigation/native';
-import {Provider} from 'react-redux';
-import RouterNavigator from './RouterNavigator';
-import {navigationRef, isReadyRef, reset} from './NavigationActions';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {changeLng} from './Config';
-import {Spinner, VectorIcon} from './components/assets/UIComponents';
-import Store from './store';
 
-function AppContainer(props) {
-  return (
-    <Provider store={Store}>
-        <NavigationContainer
-          ref={navigationRef}
-          onReady={() => {
-            isReadyRef.current = true;
-          }}>
-          <KeyboardAvoidingView
-            style={{flex: 1}}
-            behavior={Platform.OS === 'ios' ? 'padding' : null}>
-            <RouterNavigator  />
-          </KeyboardAvoidingView>
-        </NavigationContainer>
-    </Provider>
-  );
-}
+import React, { Component } from 'react';
+import { Image, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { firstPageStyles } from './components/assets/styles/Styles';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
 class App extends Component {
-  state = {lng: false, lang: '', loading: false};
-  async componentDidMount() {
-    let lang = await AsyncStorage.getItem('language');
-    if (lang) {
-      this.setState({lng: true, lang: lang});
-      changeLng(lang);
-    } else {
-      this.setState({lng: true});
-    }
-    Store.subscribe(() => {
-      const storeState = Store.getState();
-      if (storeState.mainR.loading) {
-        this.setState({loading: true});
-      } else {
-        this.setState({loading: false});
-      }
-    });
-  }
   render() {
-    const {lng, lang, loading} = this.state;
-    if (lng) {
-      return (
-        <View style={{flex: 1}}>
-          <AppContainer lang={lang} />
-          {loading ? <Spinner /> : null}
+    return (
+      <View style={firstPageStyles.pageView}>
+        <TouchableOpacity>
+          <View style={firstPageStyles.itemView}>
+            <Image source={require('./components/assets/images/iconTwo.png')} />
+            <Text style={firstPageStyles.seventhText}>الطلبات </Text>
+          </View>
+        </TouchableOpacity>
+
+        <View style={firstPageStyles.personView}>
+          <View style={firstPageStyles.personContainer}>
+            <Image
+              style={firstPageStyles.firstImage}
+              source={require('./components/assets/images/personThree.png')}
+            />
+            <View style={firstPageStyles.containerView}>
+              <Text style={firstPageStyles.containerViewFirstText}>محمد سليمان</Text>
+              <Text style={firstPageStyles.containerViewSecondText}>
+                محاسب              </Text>
+            </View>
+          </View>
+          <View style={firstPageStyles.arrowView}>
+
+            <Icon name="arrow-up" color={"white"} size={10} />
+          </View>
         </View>
-      );
-    } else {
-      return <View />;
-    }
+
+        <View style={firstPageStyles.requestContainerOne}>
+          <View style={firstPageStyles.requestContainerOneFirstView}>
+            <Text style={firstPageStyles.secondTextInView}>
+              عنوان الطلب
+            </Text>
+            <Text style={firstPageStyles.requestContainerFirstText}>
+              25/2/2020            </Text>
+          </View>
+
+          <Text style={firstPageStyles.requestContainerSecondText}>
+            هناك حقيقة مثبتة منذ زمن طويل وهي أن المحتوى المقروء
+
+
+            لصفحة ما سيلهي القارئ عن التركيز على الشكل الخارجي للنص
+          </Text>
+        </View>
+
+
+
+        <View style={firstPageStyles.conditionView}>
+          <View style={firstPageStyles.acceptView}>
+            <View >
+              <Image source={require('./components/assets/images/like.png')} />
+
+            </View>
+            <View style={firstPageStyles.acceptViewOne}>
+              <Text style={firstPageStyles.acceptTextOne} >قبول</Text>
+            </View>
+
+          </View>
+
+          <View style={firstPageStyles.refuseView}>
+            <View >
+              <Image source={require('./components/assets/images/like.png')} />
+
+            </View>
+            <View style={firstPageStyles.acceptViewOne}>
+              <Text style={firstPageStyles.acceptTextOne} >رفض</Text>
+            </View>
+
+          </View>
+
+
+
+
+        </View>
+
+
+
+
+
+        <View style={firstPageStyles.personView}>
+          <View style={firstPageStyles.personContainer}>
+            <Image
+              style={firstPageStyles.firstImage}
+              source={require('./components/assets/images/personFour.png')}
+            />
+            <View style={firstPageStyles.containerView}>
+              <Text style={firstPageStyles.firstTextInContainerView}> عنوان الطلب</Text>
+              <Text style={firstPageStyles.secondTextInContainerView}>
+                محمد سليمان            </Text>
+            </View>
+          </View>
+          <View style={firstPageStyles.arrowViewOne}>
+
+            <Icon name="arrow-down" color={"white"} size={10} />
+          </View>
+        </View>
+        <View style={firstPageStyles.personView}>
+          <View style={firstPageStyles.personContainer}>
+            <Image
+              style={firstPageStyles.firstImage}
+              source={require('./components/assets/images/person.jpg')}
+            />
+            <View style={firstPageStyles.containerView}>
+              <Text style={firstPageStyles.firstTextInContainerView}> عنوان الطلب</Text>
+              <Text style={firstPageStyles.secondTextInContainerView}>
+                محمد سليمان            </Text>
+            </View>
+          </View>
+          <View style={firstPageStyles.arrowViewOne}>
+
+            <Icon name="arrow-down" color={"white"} size={10} />
+          </View>
+        </View>
+        <View style={firstPageStyles.personView}>
+          <View style={firstPageStyles.personContainer}>
+            <Image
+              style={firstPageStyles.firstImage}
+              source={require('./components/assets/images/personFive.png')}
+            />
+            <View style={firstPageStyles.containerView}>
+              <Text style={firstPageStyles.firstTextInContainerView}> عنوان الطلب</Text>
+              <Text style={firstPageStyles.secondTextInContainerView}>
+                محمد سليمان            </Text>
+            </View>
+          </View>
+          <View style={firstPageStyles.arrowViewOne}>
+
+            <Icon name="arrow-down" color={"white"} size={10} />
+          </View>
+        </View>
+
+
+        <View style={firstPageStyles.bottomView}>
+          <View style={firstPageStyles.innerBottomView}>
+            <View>
+              <Image source={require('./components/assets/images/home.png')} />
+              <Text style={firstPageStyles.firstBottomText}>الرئيسية </Text>
+            </View>
+            <View>
+              <Image source={require('./components/assets/images/order.png')} />
+              <Text style={firstPageStyles.secondBottomText}>الطلبات </Text>
+            </View>
+            <View>
+              <Image source={require('./components/assets/images/note.png')} />
+              <Text style={firstPageStyles.secondBottomText} >الإشعارات </Text>
+            </View>
+            <View>
+              <Image source={require('./components/assets/images/settings.png')} />
+              <Text style={firstPageStyles.secondBottomText}>الإعدادات </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    );
   }
 }
-
 export default App;
